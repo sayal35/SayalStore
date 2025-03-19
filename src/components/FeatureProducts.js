@@ -9,7 +9,7 @@ const FeatureProduct = () => {
     return <div> ......Loading </div>;
   }
   if (!featureProducts || featureProducts.length === 0) {
-    return <div>No Featured Products Found</div>; // ✅ Handle empty state
+    return <div>No Featured Products Found</div>;
   }
 
   return (
@@ -57,9 +57,7 @@ const Wrapper = styled.section`
     &:hover::after {
       width: 100%;
     }
-    &:hover img {
-      transform: scale(1.2);
-    }
+
     img {
       max-width: 90%;
       margin-top: 1.5rem;

@@ -6,9 +6,11 @@ import Nav from "./Nav";
 const Header = () => {
   return (
     <MainHeader>
-      <NavLink to="/">
-        <img src="./images/logo.png" alt="my logo img" />
-      </NavLink>
+      <div className="logo">
+        <NavLink to="/">
+          <img src="./images/sayal.webp" alt="my logo img" />
+        </NavLink>
+      </div>
       <Nav />
     </MainHeader>
   );
@@ -24,7 +26,15 @@ const MainHeader = styled.header`
   position: relative;
 
   .logo {
-    height: 5rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .logo img {
+    max-height: 8rem;
+    width: auto;
   }
 `;
+
 export default Header;

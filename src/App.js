@@ -11,6 +11,10 @@ import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import PrivateRoute from "./Routes/PrivateRoute";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
   const theme = {
@@ -49,6 +53,12 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/singleproduct/:id" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
+          {/* Authentication Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>

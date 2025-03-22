@@ -1,18 +1,4 @@
 const ProductReducer = (state, action) => {
-  //   if (action.type === "SET_LOADING") {
-  //     return {
-  //       ...state,
-  //       isLOading: true,
-  //     };
-  //   }
-
-  //   if (action.type === "API_ERROR") {
-  //     return {
-  //       ...state,
-  //       isLoading: false,
-  //       isError: true,
-  //     };
-  //   }
   switch (action.type) {
     case "SET_LOADING":
       return {
@@ -21,9 +7,8 @@ const ProductReducer = (state, action) => {
       };
 
     case "SET_API_DATA":
-      const featuredData = action.payload.filter((curElem) => {
-        return curElem.featured === true;
-      });
+      const featuredData =
+        action.payload?.filter((curElem) => curElem.featured === true) || [];
 
       return {
         ...state,
@@ -39,23 +24,27 @@ const ProductReducer = (state, action) => {
         isLoading: false,
         isError: true,
       };
+
     case "SET_SINGLE_LOADING":
       return {
         ...state,
         isSingleLoading: true,
       };
+
     case "SET_SINGLE_PRODUCT":
       return {
         ...state,
         isSingleLoading: false,
         singleProduct: action.payload,
       };
+
     case "SET_SINGLE_ERROR":
       return {
         ...state,
         isSingleLoading: false,
         isError: true,
       };
+
     default:
       return state;
   }

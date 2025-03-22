@@ -11,14 +11,19 @@ import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Star from "./components/Star";
 import AddToCart from "./components/AddToCart";
 
-const API = "https://api.pujakaitem.com/api/products";
-
 const SingleProduct = () => {
   const { getSingleProduct, isSingleLoading, singleProduct } =
     useProductContext();
 
   const { id } = useParams();
+  console.log("Single Product State:", singleProduct);
+  useEffect(() => {
+    getSingleProduct(id);
+  }, [id]);
 
+  if (isSingleLoading) {
+    return <div className="page_loading">Loading.....</div>;
+  }
   const {
     id: alias,
     name,
@@ -31,14 +36,6 @@ const SingleProduct = () => {
     reviews,
     image,
   } = singleProduct;
-
-  useEffect(() => {
-    getSingleProduct(`${API}?id=${id}`);
-  }, []);
-
-  if (isSingleLoading) {
-    return <div className="page_loading">Loading.....</div>;
-  }
 
   return (
     <Wrapper>
@@ -58,7 +55,7 @@ const SingleProduct = () => {
             <p className="product-data-price">
               MRP:
               <del>
-                <FormatPrice price={price+40000} />
+                <FormatPrice price={price + 40000} />
               </del>
             </p>
             <p className="product-data-price product-data-real-price">
@@ -101,7 +98,7 @@ const SingleProduct = () => {
               </p>
             </div>
             <hr />
-            {stock> 0 && <AddToCart product={singleProduct}/> }
+            {stock > 0 && <AddToCart product={singleProduct} />}
           </div>
         </div>
       </Container>

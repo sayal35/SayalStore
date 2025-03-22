@@ -11,7 +11,7 @@ import reducer from "../reducer/productReducer";
 
 const AppContext = createContext();
 
-const API = "https://api.pujakaitem.com/api/products";
+const API = "http://localhost:8080/api/v1/product/getallproducts";
 const initialState = {
   isLoading: false,
   isError: false,
@@ -24,12 +24,12 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const getProducts = async (url) => {
+  const getProducts = async () => {
     dispatch({ type: "SET_LOADING" });
     try {
-      const res = await axios.get(url);
+      const res = await axios.get(API);
 
-      const products = await res.data;
+      const products = await res.data.products;
 
       dispatch({ type: "SET_API_DATA", payload: products });
     } catch (error) {
@@ -39,23 +39,29 @@ const AppProvider = ({ children }) => {
   };
 
   //singleproduct api call
-  const getSingleProduct = async (url) => {
+  const getSingleProduct = async (id) => {
     dispatch({ type: "SET_SINGLE_LOADING" });
     try {
-      const res = await axios.get(url);
+      const res = await axios.get(
+        `http://localhost:8080/api/v1/product/getproductbyid/${id}`
+      );
 
-      const singleProduct = await res.data;
-      dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
+      if (res.data && res.data.product) {
+        dispatch({ type: "SET_SINGLE_PRODUCT", payload: res.data.product });
+      } else {
+        dispatch({ type: "SET_SINGLE_ERROR" });
+      }
     } catch (error) {
       dispatch({ type: "SET_SINGLE_ERROR" });
     }
   };
+
   useEffect(() => {
-    getProducts(API);
+    getProducts();
   }, []);
 
   return (
-    <AppContext.Provider value={{ ...state, getSingleProduct }}>
+    <AppContext.Provider value={{ ...state, getProducts, getSingleProduct }}>
       {children}
     </AppContext.Provider>
   );

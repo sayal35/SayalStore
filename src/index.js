@@ -7,6 +7,7 @@ import { AppProvider } from "./context/productcontext";
 import { FilterContextProvider } from "./context/filter_context";
 import { CartProvider } from "./context/cart_context";
 import { AuthProvider } from "./context/auth_context";
+import { Toaster } from "react-hot-toast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -16,6 +17,7 @@ root.render(
       <FilterContextProvider>
         <CartProvider>
           <App />
+          <Toaster position="top-center" reverseOrder={false} />
         </CartProvider>
       </FilterContextProvider>
     </AppProvider>
